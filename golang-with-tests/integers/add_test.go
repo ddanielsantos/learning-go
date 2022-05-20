@@ -6,16 +6,20 @@ import (
 )
 
 func TestAdd(t *testing.T) {
-	sum := Add(2, 4)
-	expect := 6
+	t.Run("sum a slice", func(t *testing.T) {
+		numbers := []int{8, 9, 5}
 
-	if sum != expect {
-		t.Errorf("expected '%d' but got '%d'", expect, sum)
-	}
+		sum := Add(numbers)
+		expect := 22
+
+		if sum != expect {
+			t.Errorf("expected '%d' but got '%d', given %v", expect, sum, numbers)
+		}
+	})
 }
 
 func ExampleAdd() {
-	sum := Add(5, 76)
+	sum := Add([]int{5, 8, 9, 7, 1})
 	fmt.Print(sum)
-	// Output: 81
+	// Output: 30
 }
