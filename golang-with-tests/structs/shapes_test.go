@@ -13,24 +13,41 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	checkArea := func(t *testing.T, shape Shape, expected float64) {
-		t.Helper()
-		result := shape.Area()
-
-		if result != expected {
-			t.Errorf("Result: '%f' Expected: '%f'", result, expected)
-		}
+	areaTests := []struct {
+		name     string
+		shape    Shape
+		expected float64
+	}{
+		{
+			name: "Rectangle",
+			shape: Rectangle{
+				height: 26.0,
+				width:  42.0,
+			},
+			expected: 1092.0,
+		},
+		{
+			name: "Circle",
+			shape: Circle{
+				radius: 10,
+			},
+			expected: 314.1592653589793,
+		},
+		{
+			name: "Triangle",
+			shape: Triangle{
+				base: 12, height: 6,
+			},
+			expected: 36.0,
+		},
 	}
 
-	t.Run("area of a rectangle", func(t *testing.T) {
-		rectangle := Rectangle{26.0, 42.0}
-
-		checkArea(t, rectangle, 1092.0)
-	})
-
-	t.Run("area of a circle", func(t *testing.T) {
-		circle := Circle{10}
-
-		checkArea(t, circle, 314.1592653589793)
-	})
+	for _, tt := range areaTests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.shape.Area()
+			if result != tt.expected {
+				t.Errorf("Area of %#v: '%f' Expected: '%f'", tt.shape, result, tt.expected)
+			}
+		})
+	}
 }

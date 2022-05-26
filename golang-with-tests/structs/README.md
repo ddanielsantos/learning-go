@@ -6,3 +6,5 @@
 - structs
 - methods
 - interfaces
+- table driven tests
+- anonymous struct
